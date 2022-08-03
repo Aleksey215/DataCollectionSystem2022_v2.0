@@ -1,0 +1,88 @@
+<!--Данный шаблон используется для поиска публикаций по заданным параметрам-->
+<!--Наследование шаблона от основного файла-->
+{% extends 'default.html' %}
+
+<!--Загрузка собственных фильтров из файла custom_filters.py-->
+{% load custom_filters %}
+
+<!--Заголовок страницы-->
+{% block title %}
+Search tightnings
+{% endblock title %}
+
+<!--Описание содержания страницы-->
+{% block content %}
+    <h1>Поиск данных</h1>
+    <!--вывод кол-ва постов через фильтр length-->
+    <h3><p align="center">Всего операций по затяжке: {{ tightings_search|length }}</p></h3>
+    <hr>
+    <h4>Фильтры поиска</h4>
+    <br>
+    <h5>Дата вводится в формате: 2021-11-03</h5>
+    <!-- Перед таблицей добавим форму для поиска -->
+    <form method="GET">
+        {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+        <br><br>
+        <p align="center">
+            <input type="submit" value="  Найти  ">
+        </p>
+    </form>
+    <hr>
+    <!--Если публикации есть, то выводятся поля для поиска-->
+    {% if tightings_search %}
+       <table align="center">
+           <thead>
+              <th>
+                  <b>VIN номер &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Модель автомобиля &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Дата затяжки &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Время затяжки &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Имя гайковерта &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Чек &nbsp </b>
+              </th>
+           </thead>
+      {% for tightening in filter.qs %} <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+          <tr>
+              <td>
+                  <a href="{% url 'vin_detail' tightening.vin.id %}"><u>{{ tightening.vin }}</u></a>
+              </td>
+              <td>
+                  {{ tightening.vin.model }}
+              </td>
+              <td>
+                  {{ tightening.time_of_creation|date:'d.m.Y' }}
+              </td>
+              <td>
+                  {{ tightening.time_of_creation|time:'H:i' }}
+              </td>
+              <td>
+                  {{ tightening.nutrunner }}
+              </td>
+              <td>
+                  {% if tightening.printing %}
+                  <font color="00bf00"> Напечатан </font>
+                  {% else %}
+                  Не напечатан
+                  {% endif %}
+              </td>
+          </tr>
+      {% endfor %}
+      </table>
+    <br>
+    <!--если нет затяжек, то выводится сообщение ниже-->
+    {% else %}
+      <h2>Нет информации о затяжках</h2>
+    {% endif %}
+<br>
+<button><a href="auto_create_dpf">PDF</a></button>
+{% endblock content %}

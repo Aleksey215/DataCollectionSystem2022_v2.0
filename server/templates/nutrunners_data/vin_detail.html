@@ -1,0 +1,194 @@
+<!--Наследование от общего файла-шаблона-->
+{% extends 'default.html' %}
+
+
+{% block title %}
+VIN detail
+{% endblock title %}
+
+
+{% block content %}
+<h1>Результаты затяжек по выбранному VIN</h1>
+<h2 align="left">VIN: "{{ vehicle.vin_number }}"</h2>
+<h2 align="left">MODEL: "{{ vehicle.model }}"</h2> <hr>
+
+{% for tightening in tightings_list %}
+<table>
+    <caption align="top">
+        <h4>
+            {{ tightening.nutrunner }} <br>
+            ({{ tightening.time_of_creation|date:'d.m.Y' }}/{{ tightening.time_of_creation|time:'H:i' }})
+        </h4>
+    </caption>
+    <tr>
+        {% if tightening.torque_1 %}
+        <td>
+            <h4>Момент &nbsp<br> №1</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_2 %}
+        <td>
+            <h4>Момент &nbsp<br> №2</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_3 %}
+        <td>
+            <h4>Момент &nbsp<br> №3</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_4 %}
+        <td>
+            <h4>Момент &nbsp<br> №4</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_5 %}
+        <td>
+            <h4>Момент &nbsp<br> №5</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_6 %}
+        <td>
+            <h4>Момент &nbsp<br> №6</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_7 %}
+        <td>
+            <h4>Момент &nbsp<br> №7</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_8 %}
+        <td>
+            <h4>Момент &nbsp<br> №8</h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_9 %}
+        <td>
+            <h4>Момент &nbsp<br> №9 </h4>
+        </td>
+        {% endif %}
+        {% if tightening.torque_10 %}
+        <td>
+            <h4>Момент &nbsp<br> №10 </h4>
+        </td>
+        {% endif %}
+    </tr>
+    <tr>
+        {% if tightening.torque_1 %}
+        <td>
+            {% if tightening.status_1 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_1 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_1 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_1 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_1 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_2 %}
+        <td>
+            {% if tightening.status_2 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_2 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_2 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_2 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_2 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_3 %}
+        <td>
+            {% if tightening.status_3 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_3 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_3 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_3 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_3 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_4 %}
+        <td>
+            {% if tightening.status_4 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_4 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_4 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_4 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_4 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_5 %}
+        <td>
+            {% if tightening.status_5 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_5 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_5 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_5 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_5 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_6 %}
+        <td>
+            {% if tightening.status_6 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_6 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_6 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_6 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_6 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_7 %}
+        <td>
+            {% if tightening.status_7 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_7 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_7 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_7 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_7 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_8 %}
+        <td>
+            {% if tightening.status_8 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_8 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_8 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_8 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_8 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_9 %}
+        <td>
+            {% if tightening.status_9 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_9 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_9 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_9 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_9 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% if tightening.torque_10 %}
+        <td>
+            {% if tightening.status_10 == "OK" %}
+            <h4><font color="00b300">{{ tightening.torque_10 }} &nbsp</font></h4>
+            <h4><font color="00b300">{{ tightening.status_10 }} &nbsp</font></h4>
+            {% else %}
+            <h4><font color="ff0000">{{ tightening.torque_10 }} &nbsp</font></h4>
+            <h4><font color="ff0000">{{ tightening.status_10 }} &nbsp</font></h4>
+            {% endif %}
+        </td>
+        {% endif %}
+    </tr>
+</table>
+<h4>
+    {{ tightening.printing }}
+</h4>
+<hr>
+{% endfor %}
+
+{% endblock content %}
