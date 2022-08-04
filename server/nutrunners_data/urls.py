@@ -16,4 +16,6 @@ urlpatterns = [
     # # path('create_a_check/', create_a_check, name='create_a_check'),
     # подробная информация по vin
     path('vin_detail/<int:pk>/', VehicleDetailView.as_view(), name='vin_detail'),
+    # список винов
+    path('vin_search/', VehicleSearch.as_view(), name='vin_search'),
 ]

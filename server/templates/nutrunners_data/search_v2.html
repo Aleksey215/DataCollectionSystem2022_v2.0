@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!--Данный шаблон используется для поиска публикаций по заданным параметрам-->
+<!--Наследование шаблона от основного файла-->
+{% extends 'default.html' %}
 
-</body>
-</html>
+<!--Загрузка собственных фильтров из файла custom_filters.py-->
+{% load custom_filters %}
+
+<!--Заголовок страницы-->
+{% block title %}
+Search Vechicles
+{% endblock title %}
+
+<!--Описание содержания страницы-->
+{% block content %}
+    <h1>Список VIN-номеров</h1>
+    <hr>
+    <h4>Фильтры поиска</h4>
+    <!-- Перед таблицей добавим форму для поиска -->
+    <form method="GET">
+        {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+        <br><br>
+        <p align="center">
+            <input type="submit" value="  Найти  ">
+        </p>
+    </form>
+    <hr>
+    <!--Если публикации есть, то выводятся поля для поиска-->
+    {% if vehicle_search %}
+       <table align="center">
+           <thead>
+              <th>
+                  <b>VIN номер &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Модель автомобиля &nbsp </b>
+              </th>
+              <th>
+                  <b> &nbsp Информация о затяжках &nbsp </b>
+              </th>
+           </thead>
+      {% for vehicle in filter.qs %} <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+          <tr>
+              <td>
+                  {{ vehicle.vin_number }}
+              </td>
+              <td>
+                  {{ vehicle.model }}
+              </td>
+              <td>
+                  <a href="{% url 'vin_detail' vehicle.id %}"><u>Посмотреть затяжки</u></a>
+              </td>
+          </tr>
+      {% endfor %}
+      </table>
+    <br>
+    <!--если нет затяжек, то выводится сообщение ниже-->
+    {% else %}
+      <h2>Нет информации о затяжках</h2>
+    {% endif %}
+{% endblock content %}

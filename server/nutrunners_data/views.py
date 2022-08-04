@@ -9,7 +9,7 @@ from django_filters.views import FilterView
 # Импорт моделей
 from .models import *
 # Импорт собственных фильтров
-from .filters import TighteningFilter
+from .filters import TighteningFilter, VehicleFilter
 # Импорт функции для печати данных
 from .services import print_data_from_nutrunners
 
@@ -86,12 +86,12 @@ class VehicleSearch(FilterView):
     model = Vehicle
     template_name = 'nutrunners_data/search_v2.html'
     context_object_name = 'vehicle_search'
-    filterset_class = TighteningFilter
-    ordering = ['-time_of_creation']
+    filterset_class = VehicleFilter
+    ordering = ['-id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter'] = TighteningFilter(self.request.GET, queryset=self.get_queryset())
+        context['filter'] = VehicleFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
 

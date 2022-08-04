@@ -18,6 +18,7 @@ class Nutrunner(models.Model):
         return self.name
 
 
+# Модель описывающая автомобиль
 class Vehicle(models.Model):
     vin_number = models.CharField(max_length=18, unique=True)
     model = models.CharField(max_length=8, unique=True)

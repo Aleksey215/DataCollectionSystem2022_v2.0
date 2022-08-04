@@ -6,11 +6,15 @@
 VIN detail
 {% endblock title %}
 
-
 {% block content %}
 <h1>Результаты затяжек по выбранному VIN</h1>
+<br>
 <h2 align="left">VIN: "{{ vehicle.vin_number }}"</h2>
-<h2 align="left">MODEL: "{{ vehicle.model }}"</h2> <hr>
+<h2 align="left">MODEL: "{{ vehicle.model }}"</h2>
+<p style="text-align: right">
+    <a href="auto_create_dpf"><font size="5">Напечатать чек</font></a>
+</p>
+<hr>
 
 {% for tightening in tightings_list %}
 <table>
@@ -190,5 +194,4 @@ VIN detail
 </h4>
 <hr>
 {% endfor %}
-
 {% endblock content %}
