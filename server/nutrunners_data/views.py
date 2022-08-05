@@ -1,7 +1,7 @@
 import threading
 
 from django.core.cache import cache
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django_filters.views import FilterView
 
@@ -11,12 +11,12 @@ from .models import *
 # Импорт собственных фильтров
 from .filters import TighteningFilter, VehicleFilter
 # Импорт функции для печати данных
-from .services import print_data_from_nutrunners
+from .services import print_data_from_nutrunners, _create_a_check, _send_file_to_printer
 
 
 class TighteningList(ListView):
     model = Tightening
-    template_name = 'nutrunners_data/tightnings.html'
+    template_name = 'nutrunners_data/list_of_tightinings.html'
     context_object_name = 'active_tightnings'
     ordering = ['-time_of_creation']  # задаем последовательность отображения по id
 
@@ -39,7 +39,7 @@ class TighteningArchiveList(ListView):
 
 
 class TighteningDetail(DetailView):
-    template_name = 'nutrunners_data/tigtening_detail.html'
+    template_name = 'nutrunners_data/tightening_detail.html'
     queryset = Tightening.objects.all()
 
     def get_object(self, *args, **kwargs):
@@ -65,13 +65,13 @@ class VehicleDetailView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tightings_list'] = Tightening.objects.filter(vin=self.kwargs["pk"])
+        context['tightenings_list'] = Tightening.objects.filter(vin=self.kwargs["pk"])
         return context
 
 
 class TighteningSearch(FilterView):
     model = Tightening
-    template_name = 'nutrunners_data/search.html'
+    template_name = 'nutrunners_data/tightenings_search.html'
     context_object_name = 'tightings_search'
     filterset_class = TighteningFilter
     ordering = ['-time_of_creation']
@@ -84,7 +84,7 @@ class TighteningSearch(FilterView):
 
 class VehicleSearch(FilterView):
     model = Vehicle
-    template_name = 'nutrunners_data/search_v2.html'
+    template_name = 'nutrunners_data/list_of_vins.html'
     context_object_name = 'vehicle_search'
     filterset_class = VehicleFilter
     ordering = ['-id']
@@ -93,6 +93,16 @@ class VehicleSearch(FilterView):
         context = super().get_context_data(**kwargs)
         context['filter'] = VehicleFilter(self.request.GET, queryset=self.get_queryset())
         return context
+
+
+def print_check_manually(request, **kwargs):
+    pk = request.GET.get('pk', )
+    print(pk)
+    tightenings = Tightening.objects.filter(vin_id=pk)
+    print(tightenings)
+    check = _create_a_check(tightenings)
+    _send_file_to_printer(check)
+    return redirect(f'/vin_detail/{pk}/')
 
 
 t = threading.Thread(target=print_data_from_nutrunners, daemon=True)

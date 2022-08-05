@@ -29,25 +29,34 @@ Search Vechicles
        <table align="center">
            <thead>
               <th>
-                  <b>VIN номер &nbsp </b>
+                  <h4> VIN автомобиля &nbsp </h4>
               </th>
               <th>
-                  <b> &nbsp Модель автомобиля &nbsp </b>
+                  <h4> &nbsp Модель автомобиля &nbsp </h4>
               </th>
               <th>
-                  <b> &nbsp Информация о затяжках &nbsp </b>
+                  <h4> &nbsp Результаты затяжек &nbsp </h4>
+              </th>
+              <th>
+                  <h4> &nbsp Чек &nbsp </h4>
               </th>
            </thead>
       {% for vehicle in filter.qs %} <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
           <tr>
               <td>
-                  {{ vehicle.vin_number }}
+                  <font size="4">
+                      {{ vehicle.vin_number }}
+                  </font>
               </td>
               <td>
-                  {{ vehicle.model }}
+                  <font size="4">
+                      {{ vehicle.model }}
+                  </font>
               </td>
               <td>
-                  <a href="{% url 'vin_detail' vehicle.id %}"><u>Посмотреть затяжки</u></a>
+                  <font size="4">
+                      <a href="{% url 'vin_detail' vehicle.id %}"><u>Посмотреть результаты</u></a>
+                  </font>
               </td>
           </tr>
       {% endfor %}

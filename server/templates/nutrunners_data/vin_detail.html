@@ -12,11 +12,11 @@ VIN detail
 <h2 align="left">VIN: "{{ vehicle.vin_number }}"</h2>
 <h2 align="left">MODEL: "{{ vehicle.model }}"</h2>
 <p style="text-align: right">
-    <a href="auto_create_dpf"><font size="5">Напечатать чек</font></a>
+    <a href="print_a_check/?pk={{ vehicle.id }}"><font size="5">Напечатать чек</font></a>
 </p>
 <hr>
 
-{% for tightening in tightings_list %}
+{% for tightening in tightenings_list %}
 <table>
     <caption align="top">
         <h4>

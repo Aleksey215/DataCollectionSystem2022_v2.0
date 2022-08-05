@@ -13,7 +13,10 @@ Tightening detail
 
 <!--Описание содержания страницы-->
 {% block content %}
-<h1>Подробная информация о затяжке</h1>
+<h1>
+    Иинформация о затяжке. <br>
+    Гайковерт: "{{ tightening.nutrunner }}"
+</h1>
 <br>
 <h2 align="left">
     VIN-номер: "{{ tightening.vin }}"<br>
@@ -21,7 +24,7 @@ Tightening detail
     <br>Дата: "{{ tightening.time_of_creation|date:'d.m.Y' }}"<br>
     Время: "{{ tightening.time_of_creation|time:'H:i' }}"
 </h2>
-  <hr>
+<hr>
 <table>
     <!--Заголовок таблицы-->
     <thead>
