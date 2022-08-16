@@ -11,7 +11,8 @@ from .models import *
 # Импорт собственных фильтров
 from .filters import TighteningFilter, VehicleFilter
 # Импорт функции для печати данных
-from .services import print_data_from_nutrunners, _create_a_check, _send_file_to_printer
+from .services import print_data_from_nutrunners, _create_a_check, \
+    _send_file_to_printer, timeout_print_data_from_nutrunners
 
 
 class TighteningList(ListView):
@@ -54,6 +55,7 @@ class TighteningDetail(DetailView):
 class VehicleDetailView(DetailView):
     template_name = 'nutrunners_data/vin_detail.html'
     queryset = Vehicle.objects.all()
+    context_object_name = 'vehicle'
 
     def get_object(self, *args, **kwargs):
         obj = cache.get(f'vehicle-{self.kwargs["pk"]}', None)
@@ -97,13 +99,14 @@ class VehicleSearch(FilterView):
 
 def print_check_manually(request, **kwargs):
     pk = request.GET.get('pk', )
-    print(pk)
     tightenings = Tightening.objects.filter(vin_id=pk)
-    print(tightenings)
     check = _create_a_check(tightenings)
     _send_file_to_printer(check)
-    return redirect(f'/vin_detail/{pk}/')
+    return redirect('/')
 
 
 t = threading.Thread(target=print_data_from_nutrunners, daemon=True)
 t.start()
+
+# t1 = threading.Thread(target=timeout_print_data_from_nutrunners, daemon=True)
+# t1.start()

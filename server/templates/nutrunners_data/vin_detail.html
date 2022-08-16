@@ -5,12 +5,12 @@
 {% block title %}
 VIN detail
 {% endblock title %}
-
 {% block content %}
 <h1>Результаты затяжек по выбранному VIN</h1>
 <br>
-<h2 align="left">VIN: "{{ vehicle.vin_number }}"</h2>
-<h2 align="left">MODEL: "{{ vehicle.model }}"</h2>
+<h3 align="left">VIN: "{{ vehicle.vin_number }}"</h3>
+<h3 align="left">MODEL: "{{ vehicle.model }}"</h3>
+
 <p style="text-align: right">
     <a href="print_a_check/?pk={{ vehicle.id }}"><font size="5">Напечатать чек</font></a>
 </p>
@@ -189,9 +189,6 @@ VIN detail
         {% endif %}
     </tr>
 </table>
-<h4>
-    {{ tightening.printing }}
-</h4>
 <hr>
 {% endfor %}
 {% endblock content %}

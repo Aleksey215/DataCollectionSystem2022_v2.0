@@ -19,7 +19,7 @@ class ProductionLineAdmin(admin.ModelAdmin):
 
 @admin.register(Vehicle)
 class VehicleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'vin_number', 'model')
+    list_display = ('id', 'vin_number', 'model', 'check_printed')
     list_display_links = ('vin_number',)
     ordering = ['id']
 

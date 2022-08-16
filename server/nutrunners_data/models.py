@@ -22,6 +22,7 @@ class Nutrunner(models.Model):
 class Vehicle(models.Model):
     vin_number = models.CharField(max_length=18, unique=True)
     model = models.CharField(max_length=8, unique=True)
+    check_printed = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return self.vin_number
@@ -59,5 +60,3 @@ class Tightening(models.Model):
     status_8 = models.CharField(max_length=4, blank=True, null=True)
     status_9 = models.CharField(max_length=4, blank=True, null=True)
     status_10 = models.CharField(max_length=4, blank=True, null=True)
-
-

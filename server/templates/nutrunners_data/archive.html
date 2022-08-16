@@ -33,12 +33,8 @@ Archive
               <th>
                   Подробная информация
               </th>
-          <!--Закрываем тег строки-->
           </tr>
-      <!--Открываем тег цикла-->
-      <!--В цикле выводим все посты-->
-      {% for tightening in printed_list %}  <!-- Для каждого поста генерируется новая строчка, т.е. новый html-код.
-      При этом сам цикл работает также, как и в Python. post — переменная цикла, т. е. наш объект, взятый из общего списка -->
+      {% for tightening in printed_list %}
           <tr>
               <td>
                   {{ tightening.vin }}
@@ -47,11 +43,10 @@ Archive
                   {{ tightening.vin.model }}
               </td>
               <td>
-                  <!-- При нажатии на имя поста в таблице нас теперь будет перекидывать на страницу с информацией о посте -->
                   {{ tightening.nutrunner}}
               </td>
               <td>
-                  {{ tightening.time_of_creation }}
+                  {{ tightening.time_of_creation|date:'d.m.Y' }}/{{ tightening.time_of_creation|time:'H:i' }}
               </td>
               <td>
                   Напечатано
@@ -60,9 +55,7 @@ Archive
                   <a href="{% url 'vin_detail' tightening.vin.id %}"><u>Моменты и статусы</u></a>
               </td>
           </tr>
-      <!--закрываем цикл-->
       {% endfor %}
-      <!--закрываем таблицу-->
       </table>
 {% endif %}
 {% endblock content %}

@@ -1,6 +1,7 @@
 <!--Данный шаблон используется для поиска публикаций по заданным параметрам-->
 <!--Наследование шаблона от основного файла-->
 {% extends 'default.html' %}
+{% load bootstrap %}
 
 <!--Загрузка собственных фильтров из файла custom_filters.py-->
 {% load custom_filters %}
@@ -12,55 +13,65 @@ Search Vechicles
 
 <!--Описание содержания страницы-->
 {% block content %}
+<div class="container">
+
     <h1>Список VIN-номеров</h1>
     <hr>
     <h4>Фильтры поиска</h4>
     <!-- Перед таблицей добавим форму для поиска -->
     <form method="GET">
-        {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
-        <br><br>
-        <p align="center">
-            <input type="submit" value="  Найти  ">
-        </p>
+        {{ filter.form|bootstrap }}
+        <br>
+        <button type="submit" class="btn btn-primary"> Поиск </button>
     </form>
     <hr>
     <!--Если публикации есть, то выводятся поля для поиска-->
     {% if vehicle_search %}
-       <table align="center">
-           <thead>
-              <th>
-                  <h4> VIN автомобиля &nbsp </h4>
-              </th>
-              <th>
-                  <h4> &nbsp Модель автомобиля &nbsp </h4>
-              </th>
-              <th>
-                  <h4> &nbsp Результаты затяжек &nbsp </h4>
-              </th>
-              <th>
-                  <h4> &nbsp Чек &nbsp </h4>
-              </th>
-           </thead>
-      {% for vehicle in filter.qs %} <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
-          <tr>
-              <td>
-                  <font size="4">
-                      {{ vehicle.vin_number }}
-                  </font>
-              </td>
-              <td>
-                  <font size="4">
-                      {{ vehicle.model }}
-                  </font>
-              </td>
-              <td>
-                  <font size="4">
-                      <a href="{% url 'vin_detail' vehicle.id %}"><u>Посмотреть результаты</u></a>
-                  </font>
-              </td>
-          </tr>
-      {% endfor %}
-      </table>
+    <table align="center">
+        <thead>
+        <th>
+            <h4> VIN автомобиля &nbsp </h4>
+        </th>
+        <th>
+            <h4> &nbsp Модель автомобиля &nbsp </h4>
+        </th>
+        <th>
+            <h4> &nbsp Результаты затяжек &nbsp </h4>
+        </th>
+        <th>
+            <h4> &nbsp Чек &nbsp </h4>
+        </th>
+        </thead>
+        {% for vehicle in filter.qs %}
+        <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+        <tr>
+            <td>
+                <font size="4">
+                    {{ vehicle.vin_number }}
+                </font>
+            </td>
+            <td>
+                <font size="4">
+                    {{ vehicle.model }}
+                </font>
+            </td>
+            <td>
+                <font size="4">
+                    <a href="{% url 'vin_detail' vehicle.id %}"><u>Посмотреть результаты</u></a>
+                </font>
+            </td>
+            <td>
+                {% if vehicle.check_printed %}
+                <font size="4" , color="00b300">Напечатан</font>
+                {% else %}
+                Не напечатан
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
     <br>
     <!--если нет затяжек, то выводится сообщение ниже-->
     {% else %}

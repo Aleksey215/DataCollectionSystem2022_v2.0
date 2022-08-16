@@ -5,7 +5,6 @@ from .models import *
 
 # Фильтр для модели затяжек
 class TighteningFilter(FilterSet):
-    timme_of_creation = DateFilter
 
     class Meta:
         # привязка к моделе
@@ -13,9 +12,10 @@ class TighteningFilter(FilterSet):
         # определение полей для фильтрации
         fields = {
             'nutrunner': ['exact'],  # должно быть полное совпадение с тем, что указал пользователь
-            'vin__vin_number': ['exact'],
+            'vin__vin_number': ['icontains'],
             'vin__model': ['exact'],
-            'time_of_creation': ['gte'],  # # время создания должно быть больше или равно тому, что указал пользователь
+            'time_of_creation': ['gte'],  # время создания должно быть больше или равно тому, что указал пользователь
+            'printing': ['exact'],
         }
 
 

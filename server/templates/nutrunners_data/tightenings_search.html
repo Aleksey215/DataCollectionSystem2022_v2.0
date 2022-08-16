@@ -13,17 +13,74 @@ Search tightnings
 <!--Описание содержания страницы-->
 {% block content %}
     <h1>Поиск данных</h1>
-    <!--вывод кол-ва постов через фильтр length-->
-    <h3><p align="center">Всего операций по затяжке: {{ tightings_search|length }}</p></h3>
     <hr>
-    <h4>Фильтры поиска</h4>
-    <br>
     <h5>Дата вводится в формате: 2021-11-03</h5>
     <!-- Перед таблицей добавим форму для поиска -->
     <form method="GET">
-        {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
-        <br><br>
-        <p align="center">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>
+                    <p align="left">
+                        Гайковерт
+                    </p>
+                </td>
+                <td>
+                    <p align="left">
+                        {{ filter.form.nutrunner }}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left">
+                        VIN
+                    </p>
+                </td>
+                <td>
+                    <p align="left">
+                        {{ filter.form.vin__vin_number }}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left">
+                        Модель
+                    </p>
+                </td>
+                <td>
+                    <p align="left">
+                        {{ filter.form.vin__model }}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left">
+                        Дата/Время затяжки
+                    </p>
+                </td>
+                <td>
+                    <p align="left">
+                        {{ filter.form.time_of_creation }}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p align="left">
+                        Статус печати
+                    </p>
+                </td>
+                <td>
+                    <p align="left">
+                        {{ filter.form.printing }}
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <p align="left">
             <input type="submit" value="  Найти  ">
         </p>
     </form>
@@ -32,47 +89,47 @@ Search tightnings
     {% if tightings_search %}
        <table align="center">
            <thead>
-              <th>
-                  <b>VIN номер &nbsp </b>
-              </th>
-              <th>
-                  <b> &nbsp Модель автомобиля &nbsp </b>
-              </th>
-              <th>
-                  <b> &nbsp Дата затяжки &nbsp </b>
-              </th>
-              <th>
-                  <b> &nbsp Время затяжки &nbsp </b>
-              </th>
-              <th>
-                  <b> &nbsp Имя гайковерта &nbsp </b>
-              </th>
-              <th>
-                  <b> &nbsp Чек &nbsp </b>
-              </th>
+           <th>
+               <b> VIN </b>
+           </th>
+           <th>
+               <b> Модель </b>
+           </th>
+           <th>
+               <b> Дата </b>
+           </th>
+           <th>
+               <b> Время &nbsp </b>
+           </th>
+           <th>
+               <b> &nbsp Гайковерт </b>
+           </th>
+           <th>
+               <b> Чек </b>
+           </th>
            </thead>
       {% for tightening in filter.qs %} <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
           <tr>
               <td>
-                  <a href="{% url 'vin_detail' tightening.vin.id %}"><u>{{ tightening.vin }}</u></a>
+                  <a href="{% url 'vin_detail' tightening.vin.id %}"><u>{{ tightening.vin }}</u></a> &nbsp
               </td>
               <td>
-                  {{ tightening.vin.model }}
+                   &nbsp {{ tightening.vin.model }} &nbsp
               </td>
               <td>
-                  {{ tightening.time_of_creation|date:'d.m.Y' }}
+                  &nbsp {{ tightening.time_of_creation|date:'d.m.Y' }} &nbsp
               </td>
               <td>
-                  {{ tightening.time_of_creation|time:'H:i' }}
+                  &nbsp {{ tightening.time_of_creation|time:'H:i' }} &nbsp
               </td>
               <td>
-                  {{ tightening.nutrunner }}
+                  &nbsp {{ tightening.nutrunner }} &nbsp
               </td>
               <td>
                   {% if tightening.printing %}
-                  <font color="00bf00"> Напечатан </font>
+                  &nbsp <font color="00bf00"> Напечатан </font> &nbsp
                   {% else %}
-                  Не напечатан
+                  &nbsp Не напечатан &nbsp
                   {% endif %}
               </td>
           </tr>
