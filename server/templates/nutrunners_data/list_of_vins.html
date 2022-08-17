@@ -18,12 +18,15 @@ Search Vechicles
     <h1>Список VIN-номеров</h1>
     <hr>
     <h4>Фильтры поиска</h4>
-    <!-- Перед таблицей добавим форму для поиска -->
-    <form method="GET">
-        {{ filter.form|bootstrap }}
-        <br>
-        <button type="submit" class="btn btn-primary"> Поиск </button>
-    </form>
+        <!-- Перед таблицей добавим форму для поиска -->
+        <form method="GET">
+            <table align="left">
+                {{ filter.form|bootstrap }}
+            </table>
+
+            <br>
+            <button type="submit" class="btn btn-primary"> Поиск </button>
+        </form>
     <hr>
     <!--Если публикации есть, то выводятся поля для поиска-->
     {% if vehicle_search %}
@@ -72,9 +75,9 @@ Search Vechicles
     </table>
 </div>
 
-    <br>
-    <!--если нет затяжек, то выводится сообщение ниже-->
-    {% else %}
-      <h2>Нет информации о затяжках</h2>
-    {% endif %}
+<br>
+<!--если нет затяжек, то выводится сообщение ниже-->
+{% else %}
+<h2>Нет информации о затяжках</h2>
+{% endif %}
 {% endblock content %}

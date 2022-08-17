@@ -1,6 +1,7 @@
 <!--Данный шаблон используется для поиска публикаций по заданным параметрам-->
 <!--Наследование шаблона от основного файла-->
 {% extends 'default.html' %}
+{% load bootstrap %}
 
 <!--Загрузка собственных фильтров из файла custom_filters.py-->
 {% load custom_filters %}
@@ -12,77 +13,20 @@ Search tightnings
 
 <!--Описание содержания страницы-->
 {% block content %}
-    <h1>Поиск данных</h1>
+    <h2>Все затяжки</h2>
     <hr>
-    <h5>Дата вводится в формате: 2021-11-03</h5>
+    <font size="3" align="left">
+        <p>
+            Дата вводится в формате: 01.01.2022 <br>
+            Так же можно ввести дату и время: 01.01.2022 09:09
+        </p>
+    </font>
     <!-- Перед таблицей добавим форму для поиска -->
     <form method="GET">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>
-                    <p align="left">
-                        Гайковерт
-                    </p>
-                </td>
-                <td>
-                    <p align="left">
-                        {{ filter.form.nutrunner }}
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p align="left">
-                        VIN
-                    </p>
-                </td>
-                <td>
-                    <p align="left">
-                        {{ filter.form.vin__vin_number }}
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p align="left">
-                        Модель
-                    </p>
-                </td>
-                <td>
-                    <p align="left">
-                        {{ filter.form.vin__model }}
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p align="left">
-                        Дата/Время затяжки
-                    </p>
-                </td>
-                <td>
-                    <p align="left">
-                        {{ filter.form.time_of_creation }}
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p align="left">
-                        Статус печати
-                    </p>
-                </td>
-                <td>
-                    <p align="left">
-                        {{ filter.form.printing }}
-                    </p>
-                </td>
-            </tr>
-        </table>
-        <p align="left">
-            <input type="submit" value="  Найти  ">
-        </p>
+        {{ filter.form|bootstrap }}
+        <br>
+        <button type="submit" class="btn btn-primary"> Поиск </button>
     </form>
     <hr>
     <!--Если публикации есть, то выводятся поля для поиска-->
