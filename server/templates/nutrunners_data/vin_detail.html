@@ -1,29 +1,36 @@
+<!-- Шаблон для отображения подробных данных об автомобиле -->
 <!--Наследование от общего файла-шаблона-->
 {% extends 'default.html' %}
 
-
+<!-- Заголовок страницы -->
 {% block title %}
 VIN detail
 {% endblock title %}
+
+<!-- Содержание страницы -->
 {% block content %}
 <h1>Результаты затяжек по выбранному VIN</h1>
 <br>
 <h3 align="left">VIN: "{{ vehicle.vin_number }}"</h3>
 <h3 align="left">MODEL: "{{ vehicle.model }}"</h3>
 
+<!-- Вызов функции ручной печати чека для выбранного автомобиля -->
 <p style="text-align: right">
     <a href="print_a_check/?pk={{ vehicle.id }}"><font size="5">Напечатать чек</font></a>
 </p>
 <hr>
 
+<!-- проходимся по всем затяжкам выбранного автомобиля -->
 {% for tightening in tightenings_list %}
 <table>
+<!-- Формируем заголовок для каждой затяжки -->
     <caption align="top">
         <h4>
             {{ tightening.nutrunner }} <br>
             ({{ tightening.time_of_creation|date:'d.m.Y' }}/{{ tightening.time_of_creation|time:'H:i' }})
         </h4>
     </caption>
+<!-- Если есть данные, выводим их на экран -->
     <tr>
         {% if tightening.torque_1 %}
         <td>
@@ -79,9 +86,11 @@ VIN detail
     <tr>
         {% if tightening.torque_1 %}
         <td>
+            <!-- Если статус ОК, пишем зеленым цветом -->
             {% if tightening.status_1 == "OK" %}
             <h4><font color="00b300">{{ tightening.torque_1 }} &nbsp</font></h4>
             <h4><font color="00b300">{{ tightening.status_1 }} &nbsp</font></h4>
+            <!-- Иначе красным -->
             {% else %}
             <h4><font color="ff0000">{{ tightening.torque_1 }} &nbsp</font></h4>
             <h4><font color="ff0000">{{ tightening.status_1 }} &nbsp</font></h4>

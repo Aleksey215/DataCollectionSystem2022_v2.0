@@ -1,42 +1,55 @@
+"""
+Файл для описания таблиц в БД через модели.
+Каждый класс - это модель, то есть одна таблица.
+"""
 from django.db import models
 
 
-# модель производственных линий
+# модель (таблица) производственных линий
 class ProductionLine(models.Model):
+    # имя линии - строка с максимальной длинной 32 символа и должно быть уникальным
     line_name = models.CharField(max_length=32, unique=True)
 
+    # переопределяем метод для отображения в админке
     def __str__(self):
         return self.line_name
 
 
-# Модель для гайковертов
+# Модель (таблица) для гайковертов
 class Nutrunner(models.Model):
+    # имя гайковерта - строка с максимальной длинной 16 символов, уникальное
     name = models.CharField(max_length=16, unique=True)
+    # определяем линию, на которой стоит гайковерт, через связь "один ко многим"
     production_line = models.ForeignKey(ProductionLine, on_delete=models.CASCADE)
 
+    # переопределяем метод для отображения в админке
     def __str__(self):
         return self.name
 
 
-# Модель описывающая автомобиль
+# Модель (таблица) описывающая автомобиль
 class Vehicle(models.Model):
+    # ВИН автомобиля - строка в 18 символов, уникальная
     vin_number = models.CharField(max_length=18, unique=True)
+    # модель автомобиля - строка в 8 символов, уникальная
     model = models.CharField(max_length=8, unique=True)
+    # статус печати чека - логическое поле, по умолчанию - ложь, может быть пустым
     check_printed = models.BooleanField(default=False, blank=True, null=True)
 
+    # переопределяем метод для отображения в админке
     def __str__(self):
         return self.vin_number
 
 
-# Модель затяжек
+# Модель (таблица) затяжек
 class Tightening(models.Model):
-    # поле для распознавания гайковертов
+    # определяем гайковерт, который выполнил затяжку
     nutrunner = models.ForeignKey(Nutrunner, on_delete=models.CASCADE)
-    # Вин-номер автомобиля
+    # определяем Вин-номер автомобиля, на котором выполнили затяжку
     vin = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    # время передачи данных с принтконтроллера
+    # время затяжки (передается из принтконтроллеров)
     time_of_creation = models.DateTimeField(auto_now_add=True)
-    # статус печати затяжки
+    # статус печати затяжки, по умолчанию - ложь, може быть пустым
     printing = models.BooleanField(default=False, blank=True, null=True)
     # кол-во моментов - это кол-во затяжек на одном гайковерте
     torque_1 = models.FloatField(blank=True, null=True)

@@ -1,3 +1,4 @@
+<!-- Главный шаблон. Код взят с bootstrap -->
 <!DOCTYPE html>
 
 <html lang="en">
@@ -8,6 +9,7 @@
         <meta name="author" content="" />
         <title>{% block title %} {% endblock title %}</title>
 
+        <!-- подключаем статические файлы -->
         {% load static %}
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
@@ -30,12 +32,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/search/">Все затяжки</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/tightenings/">Активные затяжки</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/archive/">Архив</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="http://127.0.0.1:8000/admin">Админка</a>

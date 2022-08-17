@@ -1,6 +1,7 @@
-<!--Данный шаблон используется для поиска публикаций по заданным параметрам-->
+<!-- Шаблон для отображения всех затяжек с функцией фильтрации -->
 <!--Наследование шаблона от основного файла-->
 {% extends 'default.html' %}
+<!-- Подключаем bootstrap для форм -->
 {% load bootstrap %}
 
 <!--Загрузка собственных фильтров из файла custom_filters.py-->
@@ -29,8 +30,8 @@ Search tightnings
         <button type="submit" class="btn btn-primary"> Поиск </button>
     </form>
     <hr>
-    <!--Если публикации есть, то выводятся поля для поиска-->
-    {% if tightings_search %}
+    <!--Если затяжки есть, то выводятся поля для поиска-->
+    {% if tightings %}
        <table align="center">
            <thead>
            <th>
@@ -52,7 +53,8 @@ Search tightnings
                <b> Чек </b>
            </th>
            </thead>
-      {% for tightening in filter.qs %} <!-- поменяем tightings на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+           <!-- проходимся по каждой затяжке в отфильтрованном списке и отображаем ин-ию -->
+      {% for tightening in filter.qs %}
           <tr>
               <td>
                   <a href="{% url 'vin_detail' tightening.vin.id %}"><u>{{ tightening.vin }}</u></a> &nbsp
