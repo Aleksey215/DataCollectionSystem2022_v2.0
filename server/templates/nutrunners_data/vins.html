@@ -1,7 +1,7 @@
 <!--Данный шаблон используется для поиска публикаций по заданным параметрам-->
 <!--Наследование шаблона от основного файла-->
 {% extends 'default.html' %}
-{% load bootstrap %}
+{% load crispy_forms_tags %}
 
 <!--Загрузка собственных фильтров из файла custom_filters.py-->
 {% load custom_filters %}
@@ -21,7 +21,7 @@ Search Vechicles
         <!-- Перед таблицей добавим форму для поиска -->
         <form method="GET">
             <table align="left">
-                {{ filter.form|bootstrap }}
+                {{ filter.form|crispy }}
             </table>
 
             <br>

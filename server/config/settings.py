@@ -38,7 +38,8 @@ INSTALLED_APPS = [
 
     'nutrunners_data',
     'django_filters',
-    'bootstrapform',
+    # bootstrap
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +75,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'NAME': 'data_collection_db_new',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'USER': 'root',
+#         'PASSWORD': 'CollectionSystem2022',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'NAME': 'data_collection_db_new',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': 'CollectionSystem2022',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -125,3 +133,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# выбираем стиль
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

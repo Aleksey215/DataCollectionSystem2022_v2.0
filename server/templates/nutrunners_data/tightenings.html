@@ -2,7 +2,7 @@
 <!--Наследование шаблона от основного файла-->
 {% extends 'default.html' %}
 <!-- Подключаем bootstrap для форм -->
-{% load bootstrap %}
+{% load crispy_forms_tags %}
 
 <!--Загрузка собственных фильтров из файла custom_filters.py-->
 {% load custom_filters %}
@@ -25,7 +25,7 @@ Search tightnings
     <!-- Перед таблицей добавим форму для поиска -->
     <form method="GET">
         {% csrf_token %}
-        {{ filter.form|bootstrap }}
+        {{ filter.form|crispy }}
         <br>
         <button type="submit" class="btn btn-primary"> Поиск </button>
     </form>

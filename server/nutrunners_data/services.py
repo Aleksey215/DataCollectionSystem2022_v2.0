@@ -10,8 +10,8 @@ from datetime import datetime
 from reportlab.pdfgen import canvas
 
 # Для печати файла
-import win32api
-import win32print
+# import win32api
+# import win32print
 
 # Импорт моделей
 from .models import Tightening, Vehicle, Nutrunner
@@ -21,30 +21,30 @@ GHOSTSCRIPT_PATH = "C:\\GHOSTSCRIPT\\bin\\gswin32.exe"
 GSPRINT_PATH = "C:\\GSPRINT\\gsprint.exe"
 
 
-def _send_file_to_printer(file):
-    """
-    Отправляет печататься полученный файл на принтер,
-    выбранный как принтер по умолчанию.
-    :param file:
-    :return: True
-    """
-    # получаем принтер, выбранный по умолчанию
-    printer = win32print.GetDefaultPrinter()
-    # запуск печати
-    win32api.ShellExecute(
-        0,
-        'open',
-        GSPRINT_PATH,
-        '-ghostscript "'
-        + GHOSTSCRIPT_PATH
-        + '" -printer "'
-        + printer
-        + '" "'
-        + file  # файл, который принемает функция
-        + '" ', '.', 0
-    )
-    print("***** file successfully sent to print *****")
-    return True
+# def _send_file_to_printer(file):
+#     """
+#     Отправляет печататься полученный файл на принтер,
+#     выбранный как принтер по умолчанию.
+#     :param file:
+#     :return: True
+#     """
+#     # получаем принтер, выбранный по умолчанию
+#     printer = win32print.GetDefaultPrinter()
+#     # запуск печати
+#     win32api.ShellExecute(
+#         0,
+#         'open',
+#         GSPRINT_PATH,
+#         '-ghostscript "'
+#         + GHOSTSCRIPT_PATH
+#         + '" -printer "'
+#         + printer
+#         + '" "'
+#         + file  # файл, который принемает функция
+#         + '" ', '.', 0
+#     )
+#     print("***** file successfully sent to print *****")
+#     return True
 
 
 def _get_print_data():

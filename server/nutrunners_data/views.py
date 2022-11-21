@@ -19,7 +19,7 @@ from .models import *
 from .filters import TighteningFilter, VehicleFilter
 # Импорт функции для печати данных
 from .services import print_data_from_nutrunners, _create_a_check, \
-    _send_file_to_printer, timeout_print_data_from_nutrunners
+    timeout_print_data_from_nutrunners #_send_file_to_printer
 
 
 # Представление для отображения подробной ин-ии об автомобиле
@@ -135,7 +135,7 @@ def print_check_manually(request, **kwargs):
     # создаем чек со всеми имеющимися затяжками
     check = _create_a_check(tightenings)
     # отправляем чек на принтер
-    _send_file_to_printer(check)
+    # _send_file_to_printer(check)
     # возвращаемся на главную страницу
     return redirect('/')
 
